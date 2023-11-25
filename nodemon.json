@@ -1,0 +1,6 @@
+{
+    "exec": "babel-node",
+    "watch": ["./"],
+    "ext": "js,json"
+  }
+  
