@@ -1,0 +1,28 @@
+{
+  "name": "Tasky",
+  "version": "1.0.0",
+  "description": "Task Management API focused on implementing various aspects of backend development in a practical way. ##",
+  "main": "index.js",
+  "repository": "https://github.com/DuolearnHQ/Tasky",
+  "author": "Pavan Kumar <52795191+pavankpdev@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon node index.js",
+    "build": "babel src -d dist",
+    "start": "node dist/index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/node": "^7.22.19",
+    "@babel/preset-env": "^7.23.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "type": "module"
+}
