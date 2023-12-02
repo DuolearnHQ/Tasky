@@ -29,6 +29,31 @@ cp .env.local.template .env.local
 yarn dev
 ```
 
+## Documentation
+This project uses [Swagger](https://swagger.io/) for API documentation, you can access the documentation by visiting [http://localhost:3000/api-docs](http://localhost:3000/api-docs) after running the app.
+While developing, it is recommended to use JSDoc to document your code, you can find more information about JSDoc [here](https://jsdoc.app/), this will enable document generation for the code, and it will be used to generate the API documentation using Swagger automatically.
+
+Here's an example from `/controllers/health/index.js`
+```js
+/**
+ * @swagger
+ * /health:
+ *  get:
+ *    description: Use to request the health of the API
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+router.get("/", (req, res) => {
+    return res.json({
+        status: 'Healthy',
+        host: req.hostname
+    }).status(200);
+})
+```
+The JSDoc standard comment used here before the route, will enable swagger to generate the documentation for this route. 
+
+
 ## **Features**
 
 1. **User Authentication:**
