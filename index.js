@@ -12,6 +12,8 @@ import { connectToDB } from "./db/conn.js";
 // CONTROLLERS
 import healthRoute from "./controllers/health/index.js"
 import authRoute from "./controllers/auth/index.js"
+import projectRoute from "./controllers/project/index.js"
+import userRoute from "./controllers/user/index.js"
 
 const swaggerOptions = {
     swaggerDefinition: {
@@ -34,6 +36,9 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/health', healthRoute);
 app.use('/auth', authRoute);
+app.use('/project', projectRoute);
+app.use('/user', userRoute);
+
 
 app.listen(process.env.PORT, () => {
     connectToDB()
