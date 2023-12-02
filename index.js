@@ -35,6 +35,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+// TODO: add middleware to all these routes
 app.use('/health', healthRoute);
 app.use('/auth', authRoute);
 app.use('/project', projectRoute);
