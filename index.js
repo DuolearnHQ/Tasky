@@ -14,6 +14,7 @@ import healthRoute from "./controllers/health/index.js"
 import authRoute from "./controllers/auth/index.js"
 import projectRoute from "./controllers/project/index.js"
 import userRoute from "./controllers/user/index.js"
+import taskRoute from "./controllers/task/index.js"
 
 const swaggerOptions = {
     swaggerDefinition: {
@@ -38,7 +39,7 @@ app.use('/health', healthRoute);
 app.use('/auth', authRoute);
 app.use('/project', projectRoute);
 app.use('/user', userRoute);
-
+app.use('/task', taskRoute);
 
 app.listen(process.env.PORT, () => {
     connectToDB()
