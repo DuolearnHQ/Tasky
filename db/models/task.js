@@ -24,6 +24,11 @@ const schema = new mongoose.Schema(
             type: mongoose.Types.ObjectId,
             ref: 'Project',
             required: true
+        },
+        status: {
+            type: String,
+            enum : ["done", "pending", "wip"],
+            required: true,
         }
     }, {
         timestamps: true
