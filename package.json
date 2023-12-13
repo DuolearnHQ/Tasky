@@ -7,7 +7,7 @@
   "author": "Pavan Kumar <52795191+pavankpdev@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon node index.js",
+    "dev": "nodemon index.js",
     "build": "babel src -d dist",
     "start": "node dist/index.js",
     "lint": "eslint .",
@@ -17,12 +17,15 @@
     "@babel/core": "^7.23.3",
     "@babel/node": "^7.22.19",
     "@babel/preset-env": "^7.23.3",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
