@@ -1,8 +1,5 @@
 import { userModel } from '../../db/models/user.js';
-import { winstonLogger } from '../../middlewares/logger.js';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-
 export const findUserByEmail = async (email) => { }
 
 /**
@@ -20,18 +17,6 @@ export const createUser = async (email, fullname, password) => {
 
         const existingUser = await userModel.findOne({ email });
 
-        if (password.length < 8) {
-            throw new Error('Password must be at least 8 characters long');
-        }
-
-        if (fullname.length < 3) {
-            throw new Error('Fullname must be at least 3 characters long');
-        }
-
-        if (!email.includes('@') || !email.includes('.com')) {
-            throw new Error('Invalid email');
-        }
-
         if (existingUser) {
             throw new Error('User already exists');
         }
@@ -39,10 +24,9 @@ export const createUser = async (email, fullname, password) => {
         const user = new userModel({ email, fullname, password: hash });
         await user.save();
 
-        const token = await jwt.sign({ userId: user.id }, process.env.SECRET);
-        return token;
+        return user.id;
     } catch (error) {
-        winstonLogger.error('Error creating user:', error);
+        console.error(error);
         throw new Error(error);
     }
 }

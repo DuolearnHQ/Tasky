@@ -15,7 +15,6 @@ import authRoute from "./controllers/auth/index.js"
 import projectRoute from "./controllers/project/index.js"
 import userRoute from "./controllers/user/index.js"
 import taskRoute from "./controllers/task/index.js"
-import { createUser } from "./services/user/index.js";
 
 const swaggerOptions = {
     swaggerDefinition: {

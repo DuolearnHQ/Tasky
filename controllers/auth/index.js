@@ -1,10 +1,17 @@
 import express from "express"
 import { createUser } from "../../services/user/index.js"
-import { winstonLogger } from "../../middlewares/logger.js";
+import { createToken } from "../../services/jwt/index.js";
+import * as z from "zod";
 
 const router = express.Router();
 
 // TODO: develop the APIs and add the swagger documentation here using JSDoc syntax
+
+const userSchema = z.object({
+    fullname: z.string().min(3, "Name must be at least 3 characters long"),
+    email: z.string().email(),
+    password: z.string().min(8, "Password must be at least 8 characters long"),
+})
 
 router.post("/login", (req, res) => {
     return res.json({
@@ -110,17 +117,18 @@ router.post("/login", (req, res) => {
 router.post("/register", async (req, res) => {
     const { email, password, fullname } = req.body;
 
-    if (!email || !password || !fullname) {
-        return res.status(400).json({
-            message: "Invalid request body!"
-        });
+    const validationResult = userSchema.safeParse(req.body);
+
+    if (!validationResult.success) {
+        return res.status(400).json({ message: validationResult.error.issues });
     }
 
     try {
-        const token = await createUser(email, fullname, password);
+        const userId = await createUser(email, fullname, password);
+        const token = await createToken(userId, process.env.SECRET);
         return res.status(200).json({ token });
     } catch (error) {
-        winstonLogger.error('Error in register route:', error);
+        console.error(error);
         return res.status(500).json({ message: error.message });
     }
 });
