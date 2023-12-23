@@ -7,7 +7,7 @@ const router = express.Router();
 
 // TODO: develop the APIs and add the swagger documentation here using JSDoc syntax
 
-const userSchema = z.object({
+const registerBodyPayload = z.object({
     fullname: z.string().min(3, "Name must be at least 3 characters long"),
     email: z.string().email(),
     password: z.string().min(8, "Password must be at least 8 characters long"),
@@ -117,7 +117,7 @@ router.post("/login", (req, res) => {
 router.post("/register", async (req, res) => {
     const { email, password, fullname } = req.body;
 
-    const validationResult = userSchema.safeParse(req.body);
+    const validationResult = registerBodyPayload.safeParse(req.body);
 
     if (!validationResult.success) {
         return res.status(400).json({ message: validationResult.error.issues });
@@ -125,7 +125,7 @@ router.post("/register", async (req, res) => {
 
     try {
         const userId = await createUser(email, fullname, password);
-        const token = await createToken(userId, process.env.SECRET);
+        const token = await createToken(userId);
         return res.status(200).json({ token });
     } catch (error) {
         console.error(error);
