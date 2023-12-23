@@ -1,9 +1,38 @@
-export const findUserByEmail = async (email) => {}
+import { userModel } from '../../db/models/user.js';
+import bcrypt from 'bcrypt';
+export const findUserByEmail = async (email) => { }
 
-export const createUser = async (user) => {}
+/**
+ * Creates a new user.
+ * @param {string} email 
+ * @param {string} fullname 
+ * @param {string} password 
+ * @returns {Promise<userModel>} A promise that resolves to the created user.
+ * @throws {Error} if there is an error creating the user.
+ */
+export const createUser = async (email, fullname, password) => {
+    try {
+        const saltRounds = 10;
+        const hash = await bcrypt.hash(password, saltRounds);
 
-export const findUserById = async (id) => {}
+        const existingUser = await userModel.findOne({ email });
 
-export const updateUserById = async (id, propertiesToBeUpdated) => {}
+        if (existingUser) {
+            throw new Error('User already exists');
+        }
+
+        const user = new userModel({ email, fullname, password: hash });
+        await user.save();
+
+        return user.id;
+    } catch (error) {
+        console.error(error);
+        throw new Error(error);
+    }
+}
+
+export const findUserById = async (id) => { }
+
+export const updateUserById = async (id, propertiesToBeUpdated) => { }
 
 // more, if required
