@@ -10,13 +10,9 @@ import { ApiError } from "../../utils/ApiError.js";
 
 export const findUserByEmail = async (email) => {
   try {
-    if (!email) throw new ApiError(400, "Email is required");
-
     const user = await userModel.findOne({
       email,
     });
-
-    if (!user) throw new ApiError(404, "User doesn't exist");
     return user;
   } catch (error) {
     throw new ApiError(500, "Somethings went wrong in finding user");
