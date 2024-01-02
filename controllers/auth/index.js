@@ -1,27 +1,27 @@
 import express from "express";
 import { ApiError } from "../../utils/ApiError.js";
 import { findUserByEmail } from "../../services/user/index.js";
+import generateToken from "../../services/auth/index.js";
+import bcrpyt from "bcrypt";
 
 const router = express.Router();
 
 // TODO: develop the APIs and add the swagger documentation here using JSDoc syntax
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    //user validation ( email, password)
 
     if (!email) throw new ApiError(400, "Email is required");
 
     const user = findUserByEmail(email);
     if (!user) throw new ApiError(404, "User doesn't exist");
 
-    const isPasswordValid = user.isPasswordCorrect(password);
+    const isPasswordValid = await bcrpyt.compare(password, user?.password);
     if (!isPasswordValid) throw new ApiError(401, "Invalid user credentials");
 
     //generate access Token
-    const accessToken = user.generateAccessToken();
+    const accessToken = generateToken(user?._id);
 
     return res
       .json({
@@ -29,7 +29,7 @@ router.post("/login", (req, res) => {
       })
       .status(200);
   } catch (error) {
-    console.log("ERRR in login", error);
+    throw new ApiError(400, "ERRR in login");
   }
 });
 
