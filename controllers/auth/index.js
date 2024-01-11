@@ -26,7 +26,7 @@ router.post("/login", (req, res) => {
  *   - name: "Users"
  *     description: "User management and login"
  * paths:
- *   /register:
+ *   /auth/register:
  *     post:
  *       summary: "Create a new user"
  *       description: "Registers a new user in the system."
