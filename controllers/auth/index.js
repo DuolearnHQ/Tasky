@@ -1,5 +1,5 @@
-import express from "express"
-import { createUser } from "../../services/user/index.js"
+import express from "express";
+import { createUser } from "../../services/user/index.js";
 import { createToken } from "../../services/jwt/index.js";
 import * as z from "zod";
 
@@ -11,13 +11,15 @@ const registerBodyPayload = z.object({
     fullname: z.string().min(3, "Name must be at least 3 characters long"),
     email: z.string().email(),
     password: z.string().min(8, "Password must be at least 8 characters long"),
-})
+});
 
 router.post("/login", (req, res) => {
-    return res.json({
-        access_token: '',
-    }).status(200);
-})
+    return res
+        .json({
+            access_token: "",
+        })
+        .status(200);
+});
 
 /**
  * @swagger
@@ -51,7 +53,7 @@ router.post("/login", (req, res) => {
  *               email:
  *                 type: "string"
  *                 description: "The user's email address"
- *               password: 
+ *               password:
  *                 type: "string"
  *                 description: "The user's password"
  *       responses:
@@ -98,4 +100,4 @@ router.post("/register", async (req, res) => {
     }
 });
 
-export default router
+export default router;
