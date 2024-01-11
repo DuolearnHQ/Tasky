@@ -21,98 +21,63 @@ router.post("/login", (req, res) => {
 
 /**
  * @swagger
- * /register:
- *   post:
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
+ * swagger: "2.0"
+ * tags:
+ *   - name: "Users"
+ *     description: "User management and login"
+ * paths:
+ *   /register:
+ *     post:
+ *       summary: "Create a new user"
+ *       description: "Registers a new user in the system."
+ *       tags:
+ *         - "Users"
+ *       consumes:
+ *         - application/json
+ *       parameters:
+ *         - in: body
+ *           name: user
+ *           description: "the user to create"
  *           schema:
  *             type: object
+ *             required:
+ *               - fullname
+ *               - email
+ *               - password
  *             properties:
  *               fullname:
- *                 type: string
- *                 description: The user's name.
- *                 example: Leanne Graham
+ *                 type: "string"
+ *                 description: "The user's full name"
  *               email:
- *                 type: string
- *                 description: The user's email.  
- *                 example: leanne@example.com
- *               password:
- *                 type: string
- *                 description: The user's password.
- *                 example: password
- *     summary: Create a new user.
- *     description: Create a new user.
- *     tags:
- *       - Users
- *     produces:
- *       - application/json
- *     consumes:
- *       - application/json
- *     parameters:
- *       - in: body
- *         name: user
- *         description: The user to create.
- *         schema:
- *           type: object
- *           required:
- *             - fullname
- *             - email
- *             - password
- *           properties:
- *             fullname:
- *               type: string
- *             email:
- *               type: string
- *             password:
- *               type: string 
- *     responses:
- *       200: 
- *         description: A JSONPlaceholder user.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 fullname:
- *                   type: string
- *                   description: The user's name.
- *                   example: Leanne Graham
- *                 email:
- *                   type: string
- *                   description: The user's email.
- *                   example: leanne@example.com   
- *                 password:
- *                   type: string
- *                   description: The user's password.
- *                   example: password  
- *       400:
- *         description: Bad request.
- *       500:
- *         description: Internal server error.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: The error message.
- *                   example: Internal server error.
- *       default:
- *         description: Unexpected error.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: The error message.
- *                   example: Unexpected error.
-*/
-
+ *                 type: "string"
+ *                 description: "The user's email address"
+ *               password: 
+ *                 type: "string"
+ *                 description: "The user's password"
+ *       responses:
+ *         200:
+ *           description: "User created successfully"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: "object"
+ *                 properties:
+ *                   token:
+ *                     type: "string"
+ *                     description: "Authentication token for the user"
+ *         400:
+ *           description: "Invalid input"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: "object"
+ *                 properties:
+ *                   message:
+ *                      type: "string"
+ *                      description: "Error message detailing what went wrong"
+ *         500:
+ *            description: "Internal server error"
+ */
 
 router.post("/register", async (req, res) => {
     const { email, password, fullname } = req.body;
