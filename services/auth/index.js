@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken'
 
-
+/**
+ * 
+ * @param {string} - user id 
+ * @returns {<token>} - jwt token
+ */
 const generateToken=(id)=>{
      return jwt.sign(
         {
