@@ -1,6 +1,9 @@
-import { userModel } from '../../db/models/user.js';
+import { userModel } from "../../db/models/user.js";
 import bcrypt from 'bcrypt';
-export const findUserByEmail = async (email) => { }
+
+ 
+
+ 
 
 /**
  * Creates a new user.
@@ -31,8 +34,31 @@ export const createUser = async (email, fullname, password) => {
     }
 }
 
+
+/**
+ *
+ * @param {string} email - to unique identifier of the user
+ * @returns {Promise<userModel>} - to resolve to the find user
+ *  
+ */
+
+export const findUserByEmail = async (email) => {
+ 
+  const user = await userModel.findOne({
+    email,
+  });
+  return user;
+
+};
+
+
+
 export const findUserById = async (id) => { }
 
 export const updateUserById = async (id, propertiesToBeUpdated) => { }
+
+ 
+
+ 
 
 // more, if required

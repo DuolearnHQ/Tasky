@@ -14,8 +14,6 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@babel/core": "^7.23.3",
-    "@babel/node": "^7.22.19",
     "@babel/preset-env": "^7.23.3",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
@@ -29,6 +27,8 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.6",
+    "@babel/node": "^7.22.19",
     "nodemon": "^3.0.1"
   },
   "type": "module"
