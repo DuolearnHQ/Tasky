@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
  */
 
 export const createToken = async (id) => {
-    return jwt.sign({ userId: id }, process.env.SECRET);
+    return jwt.sign({ userId: id }, process.env.JWT_SECRET);
 }
 
 /**
@@ -19,5 +19,5 @@ export const createToken = async (id) => {
  */
 
 export const verifyToken = async (token) => {
-    return jwt.verify(token, process.env.SECRET);
+    return jwt.verify(token, process.env.JWT_SECRET);
 }
