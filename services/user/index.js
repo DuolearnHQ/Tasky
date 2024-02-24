@@ -1,3 +1,5 @@
+ 
+import mongoose from "mongoose";
 import { userModel } from "../../db/models/user.js";
 import bcrypt from 'bcrypt';
 
@@ -53,7 +55,20 @@ export const findUserByEmail = async (email) => {
 
 
 
-export const findUserById = async (id) => { }
+/**
+ *
+ * @param {string} id - to unique identifier of the user
+ * @returns {Promise<userModel>} - to resolve to the find user
+ *  
+ */
+export const findUserById = async (id) => {
+  const user=await userModel.findById({
+    _id: new mongoose.Types.ObjectId(id)
+  })
+  return user
+ }
+ 
+
 
 export const updateUserById = async (id, propertiesToBeUpdated) => { }
 
