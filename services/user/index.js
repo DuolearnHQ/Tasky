@@ -63,7 +63,7 @@ export const findUserByEmail = async (email) => {
  */
 export const findUserById = async (id) => {
   const user=await userModel.findById({
-    _id: new mongoose.Types.ObjectId(id)
+   id
   })
   return user
  }
