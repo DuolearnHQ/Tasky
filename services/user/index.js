@@ -63,7 +63,7 @@ export const findUserByEmail = async (email) => {
  */
 export const findUserById = async (id) => {
   const user=await userModel.findById({
-   id
+   _id:id
   })
   return user
  }
