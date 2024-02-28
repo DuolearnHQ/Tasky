@@ -10,7 +10,7 @@ import { ApiError } from "../utils/ApiError.js";
  */
 
 export const auth = async (req, res, next) => {
-  // TODO: implement the auth middleware here
+ 
 
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
@@ -27,9 +27,9 @@ export const auth = async (req, res, next) => {
       throw new ApiError(401, "Invalid Access Token");
     }
 
-    req.user = user;
+    req.user = user?._id;
     next();
   } catch (error) {
-    throw new ApiError(401, error?.message || "Invalid access token");
+    throw new ApiError(400, error?.message || "Invalid access token");
   }
 };
