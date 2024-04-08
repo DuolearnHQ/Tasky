@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { findUserById } from "../services/user/index.js";
-import { ApiError } from "../utils/ApiError.js";
+ 
 
 /**
  * Middleware for user authentication using JWT token
@@ -16,7 +16,7 @@ export const auth = async (req, res, next) => {
     const token = req.header("Authorization")?.replace("Bearer ", "");
 
     if (!token) {
-      throw new ApiError(401, "Unauthorized request");
+      return res.status(401).json({"Unauthorized request"});
     }
 
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -24,12 +24,12 @@ export const auth = async (req, res, next) => {
     const user = await findUserById(decodedToken?.userId);
 
     if (!user) {
-      throw new ApiError(401, "Invalid Access Token");
+      return res.status(401).json({message: "Invalid Access Token"});
     }
 
     req.user = user?._id;
     next();
   } catch (error) {
-    throw new ApiError(400, error?.message || "Invalid access token");
+    return res.status(400).json({message: error.message});
   }
 };
