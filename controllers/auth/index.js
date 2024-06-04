@@ -1,10 +1,10 @@
 import express from "express";
-import { ApiError } from "../../utils/ApiError.js";
 import { findUserByEmail } from "../../services/user/index.js";
 import bcrpyt from "bcrypt";
 import { createUser } from "../../services/user/index.js";
 import { createToken } from "../../services/jwt/index.js";
 import * as z from "zod";
+ 
 
 const router = express.Router();
 
@@ -162,14 +162,14 @@ router.post("/login", async (req, res) => {
    
     const { email, password } = req.body;
 
-    if (!email) throw new ApiError(400, "Email is required");
+    if (!email) return res.status(400).json({message:"Email is required"})
 
     const user = await findUserByEmail(email);
  
-    if (!user) throw new ApiError(404, "User doesn't exist");
+    if (!user) return res.status(404).json({message:"User doesn't exist"});
 
     const isPasswordValid = await bcrpyt.compare(password, user?.password);
-    if (!isPasswordValid) throw new ApiError(401, "Invalid user credentials");
+    if (!isPasswordValid) return res.status(401).json({message:"Invalid user credentials"});
 
     //generate access Token
     const accessToken = await createToken(user?._id);
@@ -182,7 +182,7 @@ router.post("/login", async (req, res) => {
       .status(200);
   } catch (error) {
  
-    throw new ApiError(400, "ERRR in login");
+    return res.status(500).json({message: "ERRR in login"});
   }
 });
 
